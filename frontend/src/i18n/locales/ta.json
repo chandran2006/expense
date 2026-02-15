@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "FinMate AI",
+    "login": "உள்நுழைய",
+    "signup": "பதிவு செய்ய",
+    "logout": "வெளியேறு",
+    "email": "மின்னஞ்சல்",
+    "password": "கடவுச்சொல்",
+    "confirmPassword": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+    "name": "பெயர்",
+    "submit": "சமர்ப்பிக்கவும்",
+    "cancel": "ரத்து செய்",
+    "save": "சேமி",
+    "delete": "நீக்கு",
+    "edit": "திருத்து",
+    "add": "சேர்",
+    "close": "மூடு",
+    "search": "தேடு",
+    "filter": "வடிகட்டு",
+    "loading": "ஏற்றுகிறது...",
+    "noData": "தரவு இல்லை"
+  },
+  "nav": {
+    "dashboard": "முகப்பு",
+    "transactions": "பரிவர்த்தனைகள்",
+    "budget": "வரவு செலவு",
+    "aiChat": "AI உதவியாளர்",
+    "profile": "சுயவிவரம்"
+  },
+  "auth": {
+    "welcomeBack": "மீண்டும் வரவேற்கிறோம்",
+    "createAccount": "கணக்கு உருவாக்கவும்",
+    "loginSubtitle": "உங்கள் நிதியை சிறப்பாக நிர்வகிக்க உள்நுழையவும்",
+    "signupSubtitle": "நிதி சுதந்திரத்திற்கான உங்கள் பயணத்தைத் தொடங்குங்கள்",
+    "alreadyHaveAccount": "ஏற்கனவே கணக்கு உள்ளதா?",
+    "dontHaveAccount": "கணக்கு இல்லையா?",
+    "loginSuccess": "உள்நுழைவு வெற்றிகரமாக முடிந்தது!",
+    "signupSuccess": "கணக்கு வெற்றிகரமாக உருவாக்கப்பட்டது!",
+    "invalidCredentials": "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்"
+  },
+  "dashboard": {
+    "title": "முகப்பு",
+    "totalIncome": "மொத்த வருமானம்",
+    "totalExpense": "மொத்த செலவு",
+    "remainingBalance": "மீதமுள்ள இருப்பு",
+    "categoryWise": "வகைவாரி செலவுகள்",
+    "monthlyTrend": "மாதாந்திர போக்கு",
+    "budgetProgress": "வரவு செலவு முன்னேற்றம்"
+  },
+  "transactions": {
+    "title": "பரிவர்த்தனைகள்",
+    "addTransaction": "பரிவர்த்தனை சேர்",
+    "editTransaction": "பரிவர்த்தனையைத் திருத்து",
+    "income": "வருமானம்",
+    "expense": "செலவு",
+    "type": "வகை",
+    "amount": "தொகை",
+    "category": "பிரிவு",
+    "description": "விளக்கம்",
+    "date": "தேதி",
+    "filterByCategory": "பிரிவு வாரியாக வடிகட்டு",
+    "filterByMonth": "மாதம் வாரியாக வடிகட்டு",
+    "allCategories": "அனைத்து பிரிவுகள்",
+    "deleteConfirm": "இந்த பரிவர்த்தனையை நீக்க விரும்புகிறீர்களா?"
+  },
+  "budget": {
+    "title": "வரவு செலவு",
+    "monthlyBudget": "மாதாந்திர வரவு செலவு",
+    "setBudget": "வரவு செலவை அமைக்கவும்",
+    "currentSpending": "தற்போதைய செலவு",
+    "remaining": "மீதமுள்ள",
+    "exceeded": "வரவு செலவு மீறப்பட்டது!",
+    "warning": "நீங்கள் உங்கள் வரவு செலவு வரம்பை நெருங்குகிறீர்கள்"
+  },
+  "aiChat": {
+    "title": "AI உதவியாளர்",
+    "placeholder": "உங்கள் நிதி பற்றி என்னிடம் கேளுங்கள்...",
+    "send": "அனுப்பு",
+    "typing": "AI தட்டச்சு செய்கிறது...",
+    "welcome": "வணக்கம்! நான் உங்கள் AI நிதி உதவியாளர். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?"
+  },
+  "profile": {
+    "title": "சுயவிவரம்",
+    "personalInfo": "தனிப்பட்ட தகவல்",
+    "updateProfile": "சுயவிவரத்தை புதுப்பிக்கவும்",
+    "preferences": "விருப்பத்தேர்வுகள்",
+    "language": "மொழி",
+    "theme": "தீம்",
+    "darkMode": "இருண்ட பயன்முறை",
+    "lightMode": "ஒளி பயன்முறை",
+    "updateSuccess": "சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
+  },
+  "categories": {
+    "food": "உணவு",
+    "transport": "போக்குவரத்து",
+    "shopping": "கொள்முதல்",
+    "entertainment": "பொழுதுபோக்கு",
+    "bills": "கட்டணங்கள்",
+    "healthcare": "சுகாதாரம்",
+    "education": "கல்வி",
+    "salary": "சம்பளம்",
+    "freelance": "ஃப்ரீலான்ஸ்",
+    "investment": "முதலீடு",
+    "other": "மற்றவை"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "FinMate AI",
+    "login": "लॉगिन",
+    "signup": "साइन अप",
+    "logout": "लॉगआउट",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "name": "नाम",
+    "submit": "जमा करें",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "add": "जोड़ें",
+    "close": "बंद करें",
+    "search": "खोजें",
+    "filter": "फ़िल्टर",
+    "loading": "लोड हो रहा है...",
+    "noData": "कोई डेटा उपलब्ध नहीं"
+  },
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "transactions": "लेन-देन",
+    "budget": "बजट",
+    "aiChat": "AI सहायक",
+    "profile": "प्रोफ़ाइल"
+  },
+  "auth": {
+    "welcomeBack": "वापसी पर स्वागत है",
+    "createAccount": "खाता बनाएं",
+    "loginSubtitle": "अपने वित्त को स्मार्ट तरीके से प्रबंधित करने के लिए लॉगिन करें",
+    "signupSubtitle": "वित्तीय स्वतंत्रता की अपनी यात्रा शुरू करें",
+    "alreadyHaveAccount": "पहले से खाता है?",
+    "dontHaveAccount": "खाता नहीं है?",
+    "loginSuccess": "लॉगिन सफल!",
+    "signupSuccess": "खाता सफलतापूर्वक बनाया गया!",
+    "invalidCredentials": "अमान्य ईमेल या पासवर्ड"
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "totalIncome": "कुल आय",
+    "totalExpense": "कुल व्यय",
+    "remainingBalance": "शेष राशि",
+    "categoryWise": "श्रेणी-वार व्यय",
+    "monthlyTrend": "मासिक रुझान",
+    "budgetProgress": "बजट प्रगति"
+  },
+  "transactions": {
+    "title": "लेन-देन",
+    "addTransaction": "लेन-देन जोड़ें",
+    "editTransaction": "लेन-देन संपादित करें",
+    "income": "आय",
+    "expense": "व्यय",
+    "type": "प्रकार",
+    "amount": "राशि",
+    "category": "श्रेणी",
+    "description": "विवरण",
+    "date": "तारीख",
+    "filterByCategory": "श्रेणी द्वारा फ़िल्टर करें",
+    "filterByMonth": "महीने द्वारा फ़िल्टर करें",
+    "allCategories": "सभी श्रेणियाँ",
+    "deleteConfirm": "क्या आप वाकई इस लेन-देन को हटाना चाहते हैं?"
+  },
+  "budget": {
+    "title": "बजट",
+    "monthlyBudget": "मासिक बजट",
+    "setBudget": "बजट सेट करें",
+    "currentSpending": "वर्तमान खर्च",
+    "remaining": "शेष",
+    "exceeded": "बजट पार हो गया!",
+    "warning": "आप अपनी बजट सीमा के करीब पहुंच रहे हैं"
+  },
+  "aiChat": {
+    "title": "AI सहायक",
+    "placeholder": "अपने वित्त के बारे में मुझसे कुछ भी पूछें...",
+    "send": "भेजें",
+    "typing": "AI टाइप कर रहा है...",
+    "welcome": "नमस्ते! मैं आपका AI वित्तीय सहायक हूं। आज मैं आपकी कैसे मदद कर सकता हूं?"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "personalInfo": "व्यक्तिगत जानकारी",
+    "updateProfile": "प्रोफ़ाइल अपडेट करें",
+    "preferences": "प्राथमिकताएं",
+    "language": "भाषा",
+    "theme": "थीम",
+    "darkMode": "डार्क मोड",
+    "lightMode": "लाइट मोड",
+    "updateSuccess": "प्रोफ़ाइल सफलतापूर्वक अपडेट किया गया!"
+  },
+  "categories": {
+    "food": "भोजन",
+    "transport": "परिवहन",
+    "shopping": "खरीदारी",
+    "entertainment": "मनोरंजन",
+    "bills": "बिल",
+    "healthcare": "स्वास्थ्य सेवा",
+    "education": "शिक्षा",
+    "salary": "वेतन",
+    "freelance": "फ्रीलांस",
+    "investment": "निवेश",
+    "other": "अन्य"
+  }
+}

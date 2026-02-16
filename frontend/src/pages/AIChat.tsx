@@ -18,13 +18,22 @@ export function AIChat() {
     {
       id: '1',
       role: 'assistant',
-      content: t('aiChat.welcome'),
+      content: '👋 Welcome to FinMate AI! I\'m your personal financial assistant.\n\nI can help you with:\n• Financial health analysis\n• Spending insights\n• Budget tracking\n• Saving tips\n• Expense comparisons\n\nTry the quick actions below or ask me anything!',
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const quickActions = [
+    { label: '💯 Health Score', query: 'What\'s my financial health score?' },
+    { label: '💰 Total Spending', query: 'How much did I spend this month?' },
+    { label: '📊 Top Categories', query: 'Show my top spending categories' },
+    { label: '💡 Saving Tips', query: 'Give me saving tips' },
+    { label: '📈 Compare Months', query: 'Compare with last month' },
+    { label: '💵 Balance', query: 'What\'s my current balance?' },
+  ];
 
   useEffect(() => {
     scrollToBottom();
@@ -38,10 +47,16 @@ export function AIChat() {
     e.preventDefault();
     if (!input.trim() || loading) return;
 
+    sendMessage(input);
+  }
+
+  async function sendMessage(messageText: string) {
+    if (!messageText.trim() || loading) return;
+
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
+      content: messageText,
       timestamp: new Date(),
     };
 
@@ -51,22 +66,32 @@ export function AIChat() {
 
     try {
       const response = await axios.post('http://localhost:8080/api/ai/chat', {
-        message: input,
+        message: messageText,
       });
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: response.data.response || response.data.message || t('aiChat.noResponse'),
+        content: response.data.data?.response || response.data.response || 'Response received',
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
+    } catch (error: any) {
+      let errorMsg = 'Sorry, I encountered an error.';
+      
+      if (error.code === 'ERR_NETWORK' || error.message?.includes('Network Error')) {
+        errorMsg = '🔴 Backend server is not running!\n\nPlease start the backend:\n1. Open terminal\n2. cd backend\n3. Run: start.bat\n\nOr double-click: start-all.bat';
+      } else if (error.response?.status === 401 || error.response?.status === 403) {
+        errorMsg = '🔒 Authentication required. Please login again.';
+      } else if (error.response?.data?.message) {
+        errorMsg = error.response.data.message;
+      }
+      
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: t('aiChat.error'),
+        content: errorMsg,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -144,6 +169,18 @@ export function AIChat() {
           </div>
 
           <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+            <div className="mb-3 flex flex-wrap gap-2">
+              {quickActions.map((action, index) => (
+                <button
+                  key={index}
+                  onClick={() => sendMessage(action.query)}
+                  disabled={loading}
+                  className="text-xs px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {action.label}
+                </button>
+              ))}
+            </div>
             <form onSubmit={handleSubmit} className="flex gap-3">
               <input
                 type="text"

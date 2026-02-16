@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../services/supabase';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/Card';
 import { LoadingSpinner } from '../components/Loading';
-import { TrendingUp, Download, BarChart3 } from 'lucide-react';
+import { TrendingUp, Download, BarChart3, Receipt } from 'lucide-react';
 import axios from 'axios';
+
+interface Transaction {
+  id: string;
+  type: 'income' | 'expense';
+  amount: number;
+  category: string;
+  description: string;
+  date: string;
+}
 
 export function Insights() {
   const { t } = useTranslation();
@@ -13,6 +23,7 @@ export function Insights() {
   const [loading, setLoading] = useState(true);
   const [pattern, setPattern] = useState<any>(null);
   const [forecast, setForecast] = useState<any>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     if (user) loadData();
@@ -26,6 +37,14 @@ export function Insights() {
       ]);
       setPattern(patternRes.data.data);
       setForecast(forecastRes.data.data);
+      
+      const { data: transactionsData } = await supabase
+        .from('transactions')
+        .select('*')
+        .eq('user_id', user?.id)
+        .order('date', { ascending: false })
+        .limit(10);
+      setTransactions(transactionsData || []);
     } catch (error) {
       console.error('Error loading insights:', error);
     } finally {
@@ -123,6 +142,46 @@ export function Insights() {
               </div>
             ))}
           </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Receipt size={24} className="text-blue-600 dark:text-blue-400" />
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Recent Transactions</h2>
+          </div>
+          {transactions.length === 0 ? (
+            <p className="text-gray-600 dark:text-gray-400 text-center py-4">{t('common.noData')}</p>
+          ) : (
+            <div className="space-y-3">
+              {transactions.map((transaction) => (
+                <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-xs font-semibold px-2 py-1 rounded ${
+                        transaction.type === 'income'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                      }`}>
+                        {transaction.type}
+                      </span>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">{transaction.category}</span>
+                    </div>
+                    <p className="text-sm text-gray-900 dark:text-white mt-1">{transaction.description || '-'}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      {new Date(transaction.date).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className={`text-lg font-bold ${
+                    transaction.type === 'income'
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-red-600 dark:text-red-400'
+                  }`}>
+                    {transaction.type === 'income' ? '+' : '-'}₹{transaction.amount.toLocaleString()}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </Card>
       </div>
     </Layout>

@@ -11,3 +11,4 @@ public class FinMateAIApplication {
         SpringApplication.run(FinMateAIApplication.class, args);
     }
 }
+

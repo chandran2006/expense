@@ -41,8 +41,23 @@ public class HealthScoreService {
         );
         
         String status = getStatus(score);
+        List<String> recommendations = generateRecommendations(score, savingsRate, budgetDiscipline, expenseStability, user);
         
-        return new HealthScoreDTO(score, status, savingsRate, budgetDiscipline, expenseStability);
+        // Calculate additional metrics
+        double expenseRatio = (1 - savingsRate) * 100;
+        double budgetAdherence = budgetDiscipline * 100;
+        
+        HealthScoreDTO dto = new HealthScoreDTO();
+        dto.setScore(score);
+        dto.setStatus(status);
+        dto.setSavingsRate(savingsRate * 100);
+        dto.setBudgetDiscipline(budgetDiscipline * 100);
+        dto.setExpenseStability(expenseStability * 100);
+        dto.setRecommendations(recommendations);
+        dto.setExpenseRatio(expenseRatio);
+        dto.setBudgetAdherence(budgetAdherence);
+        
+        return dto;
     }
     
     private double calculateSavingsRate(User user) {
@@ -120,5 +135,66 @@ public class HealthScoreService {
         if (score >= 60) return "Good";
         if (score >= 40) return "Fair";
         return "Poor";
+    }
+    
+    private List<String> generateRecommendations(int score, double savingsRate, double budgetDiscipline, 
+                                                   double expenseStability, User user) {
+        List<String> recommendations = new ArrayList<>();
+        
+        // Savings rate recommendations
+        if (savingsRate < 0.2) {
+            recommendations.add("💰 Your savings rate is low. Try to save at least 20% of your income.");
+            recommendations.add("📊 Review your expenses and identify areas where you can cut back.");
+        } else if (savingsRate < 0.3) {
+            recommendations.add("✅ Good savings rate! Aim for 30% to build wealth faster.");
+        } else {
+            recommendations.add("🌟 Excellent savings rate! You're on track for financial success.");
+        }
+        
+        // Budget discipline recommendations
+        if (budgetDiscipline < 0.5) {
+            recommendations.add("⚠️ You're significantly exceeding your budget. Set realistic limits and track daily.");
+            recommendations.add("🎯 Use the 50-30-20 rule: 50% needs, 30% wants, 20% savings.");
+        } else if (budgetDiscipline < 0.8) {
+            recommendations.add("📈 You're close to your budget limits. Monitor your spending more closely.");
+        } else {
+            recommendations.add("🎉 Great budget discipline! Keep up the good work.");
+        }
+        
+        // Expense stability recommendations
+        if (expenseStability < 0.5) {
+            recommendations.add("📉 Your expenses vary significantly. Create a consistent spending plan.");
+            recommendations.add("💡 Identify irregular expenses and plan for them in advance.");
+        } else if (expenseStability < 0.8) {
+            recommendations.add("📊 Your spending is moderately stable. Work on maintaining consistency.");
+        } else {
+            recommendations.add("✨ Your spending is very stable. This helps with financial planning.");
+        }
+        
+        // Overall score recommendations
+        if (score < 40) {
+            recommendations.add("🚨 Your financial health needs immediate attention. Start by tracking all expenses.");
+            recommendations.add("📱 Set up spending alerts and review your finances weekly.");
+        } else if (score < 60) {
+            recommendations.add("💪 You're making progress! Focus on building an emergency fund.");
+        } else if (score < 80) {
+            recommendations.add("🎯 You're doing well! Consider investing surplus funds for long-term growth.");
+        } else {
+            recommendations.add("🏆 Outstanding financial health! Consider advanced investment strategies.");
+        }
+        
+        // Category-specific recommendations
+        YearMonth currentMonth = YearMonth.now();
+        LocalDate startDate = currentMonth.atDay(1);
+        LocalDate endDate = currentMonth.atEndOfMonth();
+        
+        Double totalExpense = transactionRepository.sumByUserAndTypeAndDateBetween(
+                user, TransactionType.EXPENSE, startDate, endDate);
+        
+        if (totalExpense != null && totalExpense > 0) {
+            recommendations.add("📝 Review your top spending categories and look for optimization opportunities.");
+        }
+        
+        return recommendations;
     }
 }

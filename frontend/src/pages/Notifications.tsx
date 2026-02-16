@@ -25,7 +25,7 @@ export function Notifications() {
 
   async function loadNotifications() {
     try {
-      const response = await axios.get('http://localhost:8080/api/features/notifications');
+      const response = await axios.get('http://localhost:8080/api/notifications');
       setNotifications(response.data.data);
     } catch (error) {
       console.error('Error loading notifications:', error);
@@ -34,7 +34,7 @@ export function Notifications() {
 
   async function loadUnreadCount() {
     try {
-      const response = await axios.get('http://localhost:8080/api/features/notifications/count');
+      const response = await axios.get('http://localhost:8080/api/notifications/unread/count');
       setUnreadCount(response.data.data);
     } catch (error) {
       console.error('Error loading count:', error);
@@ -43,7 +43,7 @@ export function Notifications() {
 
   async function markAsRead(id: number) {
     try {
-      await axios.put(`http://localhost:8080/api/features/notifications/${id}/read`);
+      await axios.put(`http://localhost:8080/api/notifications/${id}/read`);
       loadNotifications();
       loadUnreadCount();
     } catch (error) {
@@ -53,7 +53,7 @@ export function Notifications() {
 
   async function markAllAsRead() {
     try {
-      await axios.put('http://localhost:8080/api/features/notifications/read-all');
+      await axios.put('http://localhost:8080/api/notifications/read-all');
       loadNotifications();
       loadUnreadCount();
     } catch (error) {

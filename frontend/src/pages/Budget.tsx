@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import { supabase } from '../services/supabase';
 import { Layout } from '../components/Layout';
 import { Card } from '../components/Card';
 import { LoadingSpinner } from '../components/Loading';
 import { AlertTriangle, TrendingDown, Wallet } from 'lucide-react';
+import axios from 'axios';
 
-interface Budget {
-  id: string;
+interface BudgetData {
+  id: number | null;
   month: string;
-  amount: number;
+  limitAmount: number;
+  currentSpending: number;
+  exceeded: boolean;
 }
 
 export function Budget() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [budget, setBudget] = useState<Budget | null>(null);
+  const [budgetData, setBudgetData] = useState<BudgetData | null>(null);
   const [budgetAmount, setBudgetAmount] = useState('');
-  const [currentSpending, setCurrentSpending] = useState(0);
   const currentMonth = new Date().toISOString().slice(0, 7);
 
   useEffect(() => {
@@ -30,40 +31,16 @@ export function Budget() {
 
   async function loadData() {
     try {
-      const { data: budgetData } = await supabase
-        .from('budgets')
-        .select('*')
-        .eq('user_id', user?.id)
-        .eq('month', currentMonth)
-        .maybeSingle();
-
-      const { data: transactionsData } = await supabase
-        .from('transactions')
-        .select('amount')
-        .eq('user_id', user?.id)
-        .eq('type', 'expense')
-        .gte('date', `${currentMonth}-01`)
-        .lt('date', getNextMonth(currentMonth));
-
-      const spending = transactionsData?.reduce(
-        (sum, t) => sum + Number(t.amount),
-        0
-      ) || 0;
-
-      setBudget(budgetData);
-      setBudgetAmount(budgetData?.amount.toString() || '');
-      setCurrentSpending(spending);
+      const response = await axios.get(`http://localhost:8080/api/budget/${currentMonth}`);
+      const data = response.data.data;
+      setBudgetData(data);
+      setBudgetAmount(data.limitAmount?.toString() || '');
     } catch (error) {
       console.error('Error loading data:', error);
+      setBudgetData({ id: null, month: currentMonth, limitAmount: 0, currentSpending: 0, exceeded: false });
     } finally {
       setLoading(false);
     }
-  }
-
-  function getNextMonth(month: string) {
-    const date = new Date(month + '-01');
-    date.setMonth(date.getMonth() + 1);
-    return date.toISOString().slice(0, 7);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -73,20 +50,10 @@ export function Budget() {
       const amount = Number(budgetAmount);
       if (amount <= 0) return;
 
-      if (budget) {
-        await supabase
-          .from('budgets')
-          .update({ amount })
-          .eq('id', budget.id);
-      } else {
-        await supabase.from('budgets').insert([
-          {
-            user_id: user?.id,
-            month: currentMonth,
-            amount,
-          },
-        ]);
-      }
+      await axios.post('http://localhost:8080/api/budget', {
+        month: currentMonth,
+        limitAmount: amount
+      });
 
       loadData();
     } catch (error) {
@@ -94,10 +61,11 @@ export function Budget() {
     }
   }
 
-  const budgetValue = budget?.amount || 0;
+  const budgetValue = budgetData?.limitAmount || 0;
+  const currentSpending = budgetData?.currentSpending || 0;
   const remaining = budgetValue - currentSpending;
   const percentage = budgetValue > 0 ? (currentSpending / budgetValue) * 100 : 0;
-  const isExceeded = currentSpending > budgetValue;
+  const isExceeded = budgetData?.exceeded || false;
   const isWarning = percentage > 70 && !isExceeded;
 
   if (loading) {
@@ -237,7 +205,7 @@ export function Budget() {
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
             >
-              {budget ? t('common.save') : t('budget.setBudget')}
+              {budgetData?.id ? t('common.save') : t('budget.setBudget')}
             </button>
           </form>
         </Card>

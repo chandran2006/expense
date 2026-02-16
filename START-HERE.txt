@@ -1,0 +1,74 @@
+# 🚀 START HERE - Quick Fix
+
+## Your AI Chat isn't working because the backend server is not running.
+
+---
+
+## ⚡ FASTEST FIX (30 seconds)
+
+### 1. Double-click this file:
+```
+start-all.bat
+```
+(Located in: C:\Users\ganes\OneDrive\Desktop\budget)
+
+### 2. Wait 30 seconds
+
+### 3. Refresh your browser
+
+### 4. Try AI Chat again ✅
+
+---
+
+## 🔧 Alternative: Manual Start
+
+### Open NEW terminal and run:
+```bash
+cd C:\Users\ganes\OneDrive\Desktop\budget\backend
+start.bat
+```
+
+### Wait for this message:
+```
+Started FinMateAIApplication in X.XXX seconds
+```
+
+### Keep the terminal window OPEN
+
+### Go back to browser and try again ✅
+
+---
+
+## ✅ How to Know It's Working
+
+Open this in browser:
+```
+http://localhost:8080/swagger-ui.html
+```
+
+If you see a page with API documentation = ✅ Backend is running!
+
+---
+
+## 📝 What You Need
+
+Before starting backend, make sure you have:
+
+1. ✅ Java 17 installed
+2. ✅ Maven installed  
+3. ✅ MySQL running
+4. ✅ Database `finmate_ai` exists
+
+---
+
+## 🎯 Remember
+
+**Always keep 2 terminals open:**
+1. Backend terminal (start.bat)
+2. Frontend terminal (npm run dev)
+
+**Don't close them while using the app!**
+
+---
+
+That's it! Start the backend and your AI Chat will work perfectly! 🎉

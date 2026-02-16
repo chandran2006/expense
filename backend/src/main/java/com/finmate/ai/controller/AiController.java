@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/ai")
 @RequiredArgsConstructor
-@SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "AI Chatbot", description = "AI-powered financial insights")
 public class AiController {
     

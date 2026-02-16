@@ -1,0 +1,68 @@
+# ✅ FIXED - Now Restart Backend
+
+## What Was Fixed
+The "Access Denied" error is now fixed! AI Chat will work without login.
+
+---
+
+## 🔄 RESTART BACKEND (Required)
+
+### Step 1: Stop Current Backend
+If backend is running, press `Ctrl+C` in the backend terminal
+
+### Step 2: Restart Backend
+```bash
+cd C:\Users\ganes\OneDrive\Desktop\budget\backend
+start.bat
+```
+
+### Step 3: Wait for Success Message
+```
+Started FinMateAIApplication in X.XXX seconds
+```
+
+### Step 4: Test AI Chat
+1. Go to http://localhost:5173
+2. Click "AI Chat" (no need to login)
+3. Try: "Give me saving tips"
+4. Should work! ✅
+
+---
+
+## 🎯 What Works Now
+
+### Without Login:
+- ✅ Ask for saving tips
+- ✅ Get general advice
+- ✅ Ask for help
+
+### With Login:
+- ✅ Everything above PLUS
+- ✅ Your health score
+- ✅ Your spending data
+- ✅ Budget insights
+- ✅ Personalized tips
+
+---
+
+## 🚀 Quick Start
+
+**Option 1: Use Startup Script**
+```
+Double-click: start-all.bat
+```
+
+**Option 2: Manual**
+```bash
+# Terminal 1 - Backend
+cd backend
+start.bat
+
+# Terminal 2 - Frontend (already running)
+cd frontend
+npm run dev
+```
+
+---
+
+That's it! The AI Chat is now fixed and ready to use! 🎉

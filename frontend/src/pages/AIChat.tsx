@@ -57,7 +57,7 @@ export function AIChat() {
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: response.data.response || response.data.message || 'No response',
+        content: response.data.response || response.data.message || t('aiChat.noResponse'),
         timestamp: new Date(),
       };
 
@@ -66,7 +66,7 @@ export function AIChat() {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please make sure the AI service is running at http://localhost:8080',
+        content: t('aiChat.error'),
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);

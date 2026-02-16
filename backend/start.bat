@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo SaveUp Backend - Startup Script
+echo FinMate AI Backend - Startup Script
 echo ========================================
 echo.
 
@@ -36,7 +36,7 @@ if %errorlevel% neq 0 (
 echo.
 
 echo ========================================
-echo Starting SaveUp Backend...
+echo Starting FinMate AI Backend...
 echo ========================================
 echo Server will start on: http://localhost:8080
 echo Swagger UI: http://localhost:8080/swagger-ui.html

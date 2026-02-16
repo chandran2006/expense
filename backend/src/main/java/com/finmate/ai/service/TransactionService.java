@@ -25,6 +25,7 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserService userService;
     private final DailySpendingService dailySpendingService;
+    private final BudgetService budgetService;
     
     public TransactionDTO addTransaction(TransactionRequest request) {
         User user = userService.getCurrentUser();
@@ -42,6 +43,7 @@ public class TransactionService {
         // Check daily and monthly limits after adding expense
         if (transaction.getType() == TransactionType.EXPENSE) {
             dailySpendingService.checkDailyLimit(user);
+            budgetService.checkMonthlyBudget(user);
         }
         
         return mapToDTO(transaction);

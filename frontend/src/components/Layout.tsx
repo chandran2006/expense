@@ -10,7 +10,11 @@ import {
   User,
   LogOut,
   Menu,
-  X
+  X,
+  Bell,
+  Heart,
+  Camera,
+  TrendingUp
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -27,6 +31,10 @@ export function Layout({ children }: LayoutProps) {
     { path: '/dashboard', icon: LayoutDashboard, label: t('nav.dashboard') },
     { path: '/transactions', icon: ArrowLeftRight, label: t('nav.transactions') },
     { path: '/budget', icon: Wallet, label: t('nav.budget') },
+    { path: '/insights', icon: TrendingUp, label: t('nav.insights') },
+    { path: '/notifications', icon: Bell, label: t('nav.notifications') },
+    { path: '/health-score', icon: Heart, label: t('nav.healthScore') },
+    { path: '/receipt-scanner', icon: Camera, label: t('nav.receiptScanner') },
     { path: '/ai-chat', icon: MessageSquare, label: t('nav.aiChat') },
     { path: '/profile', icon: User, label: t('nav.profile') },
   ];

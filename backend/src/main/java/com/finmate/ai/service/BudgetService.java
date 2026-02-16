@@ -55,14 +55,6 @@ public class BudgetService {
         
         boolean exceeded = currentSpending > budget.getLimitAmount();
         
-        if (exceeded) {
-            notificationService.createNotification(
-                    user,
-                    String.format("Budget exceeded! Spent: ₹%.2f, Limit: ₹%.2f", currentSpending, budget.getLimitAmount()),
-                    com.finmate.ai.entity.NotificationType.WARNING
-            );
-        }
-        
         return new BudgetDTO(
                 budget.getId(),
                 budget.getMonth(),
@@ -70,5 +62,46 @@ public class BudgetService {
                 currentSpending,
                 exceeded
         );
+    }
+    
+    public void checkMonthlyBudget(User user) {
+        String currentMonth = YearMonth.now().toString();
+        Budget budget = budgetRepository.findByUserAndMonth(user, currentMonth)
+                .orElse(null);
+        
+        if (budget == null) return;
+        
+        YearMonth yearMonth = YearMonth.now();
+        LocalDate startDate = yearMonth.atDay(1);
+        LocalDate endDate = yearMonth.atEndOfMonth();
+        
+        Double currentSpending = transactionRepository.sumByUserAndTypeAndDateBetween(
+                user, TransactionType.EXPENSE, startDate, endDate);
+        currentSpending = currentSpending != null ? currentSpending : 0.0;
+        
+        double percentage = (currentSpending / budget.getLimitAmount()) * 100;
+        
+        if (currentSpending > budget.getLimitAmount()) {
+            notificationService.createNotification(
+                    user,
+                    String.format("🚨 Budget exceeded! Spent: ₹%.2f, Limit: ₹%.2f (%.0f%%)", 
+                        currentSpending, budget.getLimitAmount(), percentage),
+                    com.finmate.ai.entity.NotificationType.WARNING
+            );
+        } else if (percentage >= 90) {
+            notificationService.createNotification(
+                    user,
+                    String.format("⚠️ Budget alert! You've used %.0f%% of your monthly budget (₹%.2f/₹%.2f)", 
+                        percentage, currentSpending, budget.getLimitAmount()),
+                    com.finmate.ai.entity.NotificationType.ALERT
+            );
+        } else if (percentage >= 75) {
+            notificationService.createNotification(
+                    user,
+                    String.format("💡 Budget reminder: %.0f%% used (₹%.2f/₹%.2f)", 
+                        percentage, currentSpending, budget.getLimitAmount()),
+                    com.finmate.ai.entity.NotificationType.INFO
+            );
+        }
     }
 }

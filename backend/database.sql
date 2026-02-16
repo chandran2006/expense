@@ -1,9 +1,9 @@
--- SaveUp Database Setup Script
+-- FinMate AI Database Setup Script
 -- MySQL 8.0+
 
 -- Create Database
-CREATE DATABASE IF NOT EXISTS saveup;
-USE saveup;
+CREATE DATABASE IF NOT EXISTS finmate_ai;
+USE finmate_ai;
 
 -- Note: Tables will be auto-created by Hibernate with spring.jpa.hibernate.ddl-auto=update
 -- This script is for reference and manual setup if needed
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS chat_history (
 INSERT INTO users (name, email, password, role, preferred_language, theme_mode) 
 VALUES (
     'Demo User', 
-    'demo@saveup.com', 
+    'demo@finmate.ai', 
     '$2a$10$xQGKvXEZvXxVXxVXxVXxVeXxVXxVXxVXxVXxVXxVXxVXxVXxVXxVX',
     'USER',
     'EN',

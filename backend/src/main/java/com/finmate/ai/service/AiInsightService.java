@@ -7,12 +7,15 @@ import com.finmate.ai.entity.User;
 import com.finmate.ai.repository.ChatHistoryRepository;
 import com.finmate.ai.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -27,14 +30,20 @@ public class AiInsightService {
         User user = userService.getCurrentUser();
         String response = generateResponse(message, user);
         
+        saveChatHistoryAsync(user, message, response);
+        
+        return new ChatResponse(response);
+    }
+    
+    @Async
+    public CompletableFuture<Void> saveChatHistoryAsync(User user, String message, String response) {
         ChatHistory chatHistory = new ChatHistory();
         chatHistory.setUser(user);
         chatHistory.setMessage(message);
         chatHistory.setResponse(response);
         chatHistory.setTimestamp(LocalDateTime.now());
         chatHistoryRepository.save(chatHistory);
-        
-        return new ChatResponse(response);
+        return CompletableFuture.completedFuture(null);
     }
     
     private String generateResponse(String message, User user) {

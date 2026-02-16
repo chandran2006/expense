@@ -18,12 +18,20 @@
     "search": "Search",
     "filter": "Filter",
     "loading": "Loading...",
-    "noData": "No data available"
+    "noData": "No data available",
+    "amount": "Amount",
+    "category": "Category",
+    "date": "Date",
+    "actions": "Actions"
   },
   "nav": {
     "dashboard": "Dashboard",
     "transactions": "Transactions",
     "budget": "Budget",
+    "insights": "Insights",
+    "notifications": "Notifications",
+    "healthScore": "Health Score",
+    "receiptScanner": "Receipt Scanner",
     "aiChat": "AI Assistant",
     "profile": "Profile"
   },
@@ -61,7 +69,10 @@
     "filterByCategory": "Filter by Category",
     "filterByMonth": "Filter by Month",
     "allCategories": "All Categories",
-    "deleteConfirm": "Are you sure you want to delete this transaction?"
+    "deleteConfirm": "Are you sure you want to delete this transaction?",
+    "emptyDescription": "Start tracking your finances by adding your first transaction",
+    "selectCategory": "Select category",
+    "descriptionPlaceholder": "Optional description"
   },
   "budget": {
     "title": "Budget",
@@ -72,12 +83,53 @@
     "exceeded": "Budget Exceeded!",
     "warning": "You are approaching your budget limit"
   },
+  "insights": {
+    "title": "Advanced Insights",
+    "topCategory": "Top Category",
+    "avgDailySpending": "Avg Daily Spending",
+    "projectedMonthly": "Projected Monthly",
+    "categoryBreakdown": "Category Breakdown",
+    "exportCSV": "Export CSV"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark All Read",
+    "noNotifications": "No notifications yet",
+    "alert": "Alert",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "healthScore": {
+    "title": "Financial Health Score",
+    "excellent": "Excellent",
+    "good": "Good",
+    "fair": "Fair",
+    "poor": "Poor",
+    "needsImprovement": "Needs Improvement",
+    "savingsRate": "Savings Rate",
+    "expenseRatio": "Expense Ratio",
+    "budgetAdherence": "Budget Adherence",
+    "recommendations": "Recommendations"
+  },
+  "receiptScanner": {
+    "title": "Receipt Scanner",
+    "uploadReceipt": "Upload Receipt",
+    "subtitle": "Take a photo or upload an image of your receipt",
+    "chooseFile": "Choose File",
+    "scanReceipt": "Scan Receipt",
+    "processing": "Processing...",
+    "success": "Receipt Processed Successfully",
+    "merchant": "Merchant",
+    "failed": "Failed to process receipt"
+  },
   "aiChat": {
     "title": "AI Assistant",
     "placeholder": "Ask me anything about your finances...",
     "send": "Send",
     "typing": "AI is typing...",
-    "welcome": "Hello! I'm your AI financial assistant. How can I help you today?"
+    "welcome": "Hello! I'm your AI financial assistant. How can I help you today?",
+    "noResponse": "No response",
+    "error": "Sorry, I encountered an error. Please make sure the AI service is running at http://localhost:8080"
   },
   "profile": {
     "title": "Profile",

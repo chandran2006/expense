@@ -20,6 +20,18 @@ public class NotificationService {
     private final UserService userService;
     
     public void createNotification(User user, String message, NotificationType type) {
+        // Prevent duplicate notifications within 1 hour
+        List<Notification> recentNotifications = notificationRepository
+            .findByUserOrderByCreatedAtDesc(user)
+            .stream()
+            .filter(n -> n.getCreatedAt().isAfter(java.time.LocalDateTime.now().minusHours(1)))
+            .filter(n -> n.getMessage().equals(message))
+            .toList();
+        
+        if (!recentNotifications.isEmpty()) {
+            return; // Skip duplicate
+        }
+        
         Notification notification = new Notification();
         notification.setUser(user);
         notification.setMessage(message);
